@@ -33,16 +33,13 @@ if(WIN32)
    list(APPEND QTZEROCONF_LIBS ${WS2_32_LIBRARY} ${WSOCK32_LIBRARY})
 endif()
 
-#if(APPLE)
-# TODO
-# macx {
-#	HEADERS+= $$PWD/qzeroconf.h $$PWD/bonjour_p.h
-#	SOURCES+= $$PWD/bonjour.cpp
-#	QMAKE_LFLAGS += -F /System/Library/Frameworks/CoreServices.framework/
-#	LIBS+= -framework CoreServices
-#	QMAKE_CXXFLAGS+= -I$$PWD
-#}
-#endif()
+if(APPLE)
+   list(APPEND ZEROCONF_HDRS qzeroconf.h bonjour_p.h)
+   list(APPEND ZEROCONF_SRCS bonjour.cpp)
+   find_library(CORESERVICES_LIBRARY CoreServices)
+   list(APPEND QTZEROCONF_LIBS ${CORESERVICES_LIBRARY})
+   include_directories(${QtZeroConf_SOURCE_DIR})
+endif()
 
 if(CMAKE_SYSTEM_NAME MATCHES Android)
    include_directories(${QtZeroConf_SOURCE_DIR})
