@@ -101,5 +101,8 @@ endif()
 
 add_library(QtZeroConf SHARED ${QTZEROCONF_SRCS} ${QTZEROCONF_HDRS})
 target_link_libraries(QtZeroConf Qt5::Core Qt5::Network ${QTZEROCONF_LIBS})
+set_target_properties(QtZeroConf PROPERTIES VERSION 1.0 SOVERSION 1)
 
 add_subdirectory(example)
+
+install(TARGETS QtZeroConf LIBRARY DESTINATION lib)
